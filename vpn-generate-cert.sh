@@ -8,8 +8,8 @@ while [ $# -gt 0 ]; do
     ;;
 
   --passphrase)
-    PASSPHRASE=$2
-    shift 2
+    PASSPHRASE=$1
+    shift 1
     ;;
 
   *)
@@ -24,9 +24,11 @@ fi
 
 if [[ -n $PASSPHRASE ]]; then
 	# with a passphrase (recommended)
+	echo "Generating with passphrase"
 	docker-compose run --rm openvpn easyrsa build-client-full $CLIENTNAME
 else
 	# without a passphrase (not recommended)
+	echo "Generating without passphrase"
 	docker-compose run --rm openvpn easyrsa build-client-full $CLIENTNAME nopass
 fi
 

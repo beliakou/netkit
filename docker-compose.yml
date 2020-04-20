@@ -24,23 +24,18 @@ services:
         ipv4_address: 10.5.0.3
     volumes:
       - ./nginx-data/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx-data/proxy:/etc/nginx/sites-enabled/proxy
     depends_on:
       - powerdns
 
   powerdns:
     build: ./powerdns
     ports:
-      - 1053:53/udp
-      - 1053:53/tcp
       - 8081:8081
     environment:
       - PDNS_LOG_LEVEL=0
-      - PDNS_API_KEY=34H5G34J5H43H34
-      - PDNS_WEBSERVER_PASSWORD=123456
-      - PDNS_WEBSERVER_ALLOWED_FROM=127.0.0.1,::1,10.0.0.0/8
-    volumes: 
-      - ./powerdns-data/:/pdns/
+      - PDNS_API_KEY=MCv2XyZ2nFxPZxAxdosBxBWcVe32
+      - PDNS_WEBSERVER_PASSWORD=tiY6H5vXCFhUTM
+      - PDNS_WEBSERVER_ALLOWED_FROM=0.0.0.0/0
     networks:
       vpcbr:
         ipv4_address: 10.5.0.4

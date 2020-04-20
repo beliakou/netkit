@@ -1,6 +1,14 @@
 #/bin/bash
 
-docker-compose run --rm openvpn ovpn_genconfig -u udp://$(curl -4 ifconfig.co)
+TARGET_IP=$1
+
+if [[ -z $TARGET_IP ]]; then
+	TARGET_IP=$(curl -4 ifconfig.co)
+fi
+
+echo "Configure OpenVPN with IP address: $TARGET_IP"
+
+docker-compose run --rm openvpn ovpn_genconfig -u udp://$TARGET_IP
 docker-compose run --rm openvpn ovpn_initpki
 
 docker-compose run --rm openvpn bash -c "echo '' >> /etc/openvpn/openvpn.conf"
